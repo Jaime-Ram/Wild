@@ -443,10 +443,9 @@
         footer {
             border-top: 1px solid var(--rule);
             padding: 2rem 2.5rem;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
         }
 
         .f-logo {
@@ -475,7 +474,7 @@
             fill: currentColor;
         }
 
-        .f-copy { font-size: 0.62rem; color: var(--ink2); }
+        .f-copy { font-size: 0.62rem; color: var(--ink2); text-align: right; }
 
         /* ── Responsive ── */
         @media (max-width: 900px) {
