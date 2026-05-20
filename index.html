@@ -151,6 +151,41 @@
 
         .hero-title em { font-style: normal; font-family: var(--script); font-size: 1.15em; }
 
+        /* ── Pen circle ── */
+        .pen-circle {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .pen-circle svg {
+            position: absolute;
+            left: -10%;
+            top: -20%;
+            width: 120%;
+            height: 140%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .pen-circle path {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 320;
+            stroke-dashoffset: 320;
+            animation: drawCircle 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .pen-circle.in path { animation-play-state: running; }
+        .pen-circle path { animation-play-state: paused; }
+
+        @keyframes drawCircle {
+            to { stroke-dashoffset: 0; }
+        }
+
         .hero-meta {
             text-align: right;
         }
@@ -517,7 +552,7 @@
 <div class="hero">
     <img src="wb12.jpg" alt="Interior de Wild Bakery">
     <div class="hero-content">
-        <h1 class="hero-title">Donde lo tradicional<br><em>se vuelve salvaje.</em></h1>
+        <h1 class="hero-title">Donde lo tradicional<br><em>se vuelve <span class="pen-circle">salvaje.<svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M 8,32 C 2,18 5,4 50,3 C 88,2 100,12 98,24 C 96,36 80,40 50,39 C 22,38 2,34 5,28 C 7,22 20,36 8,32"/></svg></span></em></h1>
         <div class="hero-meta">
             <p>Pocitos · Montevideo</p>
             <a href="#menu" class="hero-cta">Ver el menú →</a>
@@ -574,7 +609,7 @@
     </div>
     <div class="split-body">
         <p class="eyebrow">Nuestra historia</p>
-        <h2 class="split-title">Bake no limits.<br><em>En serio.</em></h2>
+        <h2 class="split-title"><span class="pen-circle">Bake no limits.<svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M 8,32 C 2,18 5,4 50,3 C 88,2 100,12 98,24 C 96,36 80,40 50,39 C 22,38 2,34 5,28 C 7,22 20,36 8,32"/></svg></span><br><em>En serio.</em></h2>
         <p>Wild Bakery nació con una idea simple: traer al barrio el pan que Uruguay merece. Sin atajos, sin tiempos acelerados.</p>
         <p>Usamos harinas locales, fermentaciones largas y manteca de verdad. El resultado habla solo.</p>
         <a href="#visita" class="btn">Venir a vernos</a>
@@ -628,7 +663,7 @@
 <section class="visit" id="visita">
     <div class="visit-info">
         <p class="eyebrow">Encontranos</p>
-        <h2>Ven por el pan,<br><em>quedate por el café.</em></h2>
+        <h2>Ven por el pan,<br><em>quedate por el <span class="pen-circle">café.<svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M 8,32 C 2,18 5,4 50,3 C 88,2 100,12 98,24 C 96,36 80,40 50,39 C 22,38 2,34 5,28 C 7,22 20,36 8,32"/></svg></span></em></h2>
         <div class="visit-detail">
             <h4>Dirección</h4>
             <p>Bulevar España 2758<br>Pocitos, Montevideo</p>
@@ -663,5 +698,17 @@
     <span class="f-copy">© 2025 Wild Bakery · Pan sin moldes · Pocitos</span>
 </footer>
 
+<script>
+    const circles = document.querySelectorAll('.pen-circle');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    circles.forEach(c => io.observe(c));
+</script>
 </body>
 </html>
